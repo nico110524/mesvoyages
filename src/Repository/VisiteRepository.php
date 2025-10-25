@@ -46,8 +46,17 @@ class VisiteRepository extends ServiceEntityRepository
                     ->setParameter('valeur', $valeur)
                     ->orderBy('v.datecreation','DESC')
                     ->getQuery()
-                    ->getResult();
-            
+                    ->getResult();           
         }
+    }
+    /**
+     * supprime une visite
+     * @param Visite $visite
+     * @return void
+     */
+    public function remove(Visite $visite): void
+    {
+        $this->getEntityManager()->remove($visite);
+        $this->getEntityManager()->flush();
     }
 }

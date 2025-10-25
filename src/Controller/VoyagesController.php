@@ -22,7 +22,10 @@ private $repository;
 public function __construct(VisiteRepository $repository) {
     $this->repository = $repository;
 }
-
+/**
+ * 
+ * @return Response
+ */
 #[Route('/voyages', name: 'voyages')]
     public function index(): Response{
     $visites = $this->repository->findAllOrderBy('datecreation','DESC');
@@ -35,6 +38,12 @@ public function __construct(VisiteRepository $repository) {
     return $this->render("pages/voyages.html.twig",[
         'visites' => $visites]);
     }
+    /**
+     * 
+     * @param type $champ
+     * @param Request $request
+     * @return Response
+     */
  #[Route('/voyage/recherche/{champ}',name: 'voyages.findallequal')]
     public function findAllEqual($champ,Request $request): Response{
      $valeur = $request->get("recherche");
@@ -42,6 +51,10 @@ public function __construct(VisiteRepository $repository) {
      return $this->render("pages/voyages.html.twig",[
          'visites' => $visites]);
     }
-
-
+#[Route('/voyages/voyage/{id}',name: 'voyages.showone')]
+    public function showOne($id) : Response{
+    $visite = $this->repository->find($id);
+    return $this->render("pages/voyage.html.twig",[
+        'visite'=>$visite ]);
     }
+}
