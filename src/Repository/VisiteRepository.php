@@ -49,7 +49,14 @@ class VisiteRepository extends ServiceEntityRepository
                     ->getResult();           
         }
     }
-    /**
+    public function findTwoLastValue($nb): array{
+        return $this->createQueryBuilder('v')
+                ->orderBy('v.datecreation','DESC')
+                ->setMaxResults($nb)
+                ->getQuery()
+                ->getResult();
+    }
+    /** 
      * supprime une visite
      * @param Visite $visite
      * @return void
